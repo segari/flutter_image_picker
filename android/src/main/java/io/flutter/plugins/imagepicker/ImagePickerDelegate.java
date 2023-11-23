@@ -348,9 +348,19 @@ public class ImagePickerDelegate
   }
 
   private void launchPickImageFromGalleryIntent() {
-    Intent pickImageIntent = new Intent(Intent.ACTION_GET_CONTENT);
-    pickImageIntent.setType("image/*");
-
+    Intent pickImageIntent;
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+      pickImageIntent =
+              new ActivityResultContracts.PickVisualMedia()
+                      .createIntent(
+                              activity,
+                              new PickVisualMediaRequest.Builder()
+                                      .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                                      .build());
+    } else {
+      pickImageIntent = new Intent(Intent.ACTION_GET_CONTENT);
+      pickImageIntent.setType("image/*");
+    }
     activity.startActivityForResult(pickImageIntent, REQUEST_CODE_CHOOSE_IMAGE_FROM_GALLERY);
   }
 
