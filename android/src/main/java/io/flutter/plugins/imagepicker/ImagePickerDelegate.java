@@ -11,6 +11,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.hardware.camera2.CameraCharacteristics;
 import android.media.MediaScannerConnection;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -348,8 +350,21 @@ public class ImagePickerDelegate
   }
 
   private void launchPickImageFromGalleryIntent() {
-    Intent pickImageIntent = new Intent(Intent.ACTION_GET_CONTENT);
-    pickImageIntent.setType("image/*");
+    Intent pickMediaIntent;
+    if(Build.VERSION.SDK_INT >= 33){
+      pickMediaIntent =
+              new ActivityResultContracts.PickVisualMedia()
+                      .createIntent(
+                              activity,
+                              new PickVisualMediaRequest.Builder()
+                                      .setMediaType(
+                                              ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                                      .build());
+    }else{
+      pickImageIntent = new Intent(Intent.ACTION_GET_CONTENT);
+      pickMediaIntent.setType("*/*");
+      String[] mimeTypes = {"image/*"};
+    }
 
     activity.startActivityForResult(pickImageIntent, REQUEST_CODE_CHOOSE_IMAGE_FROM_GALLERY);
   }
