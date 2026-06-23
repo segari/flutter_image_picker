@@ -257,13 +257,7 @@ public class ImagePickerDelegate
       return;
     }
 
-    if(Build.VERSION.SDK_INT >= 33){
-      if (!permissionManager.isPermissionGranted(android.Manifest.permission.READ_MEDIA_VIDEO)) {
-        permissionManager.askForPermission(
-                android.Manifest.permission.READ_MEDIA_VIDEO, REQUEST_EXTERNAL_VIDEO_STORAGE_PERMISSION);
-        return;
-      }
-    }else{
+    if (Build.VERSION.SDK_INT < 33) {
       if (!permissionManager.isPermissionGranted(Manifest.permission.READ_EXTERNAL_STORAGE)) {
         permissionManager.askForPermission(
                 Manifest.permission.READ_EXTERNAL_STORAGE, REQUEST_EXTERNAL_VIDEO_STORAGE_PERMISSION);
@@ -330,13 +324,7 @@ public class ImagePickerDelegate
       return;
     }
 
-    if(Build.VERSION.SDK_INT >= 33){
-      if (!permissionManager.isPermissionGranted(android.Manifest.permission.READ_MEDIA_IMAGES)) {
-        permissionManager.askForPermission(
-                android.Manifest.permission.READ_MEDIA_IMAGES, REQUEST_EXTERNAL_IMAGE_STORAGE_PERMISSION);
-        return;
-      }
-    }else {
+    if (Build.VERSION.SDK_INT < 33) {
       if (!permissionManager.isPermissionGranted(Manifest.permission.READ_EXTERNAL_STORAGE)) {
         permissionManager.askForPermission(
                 Manifest.permission.READ_EXTERNAL_STORAGE, REQUEST_EXTERNAL_IMAGE_STORAGE_PERMISSION);
