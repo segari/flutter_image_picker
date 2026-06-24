@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="io.flutter.plugins.imagepicker">
+    package="io.flutter.plugins.imagepicker">
+
     <application>
         <provider
             android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
@@ -8,7 +9,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/flutter_image_picker_file_paths"/>
+                android:resource="@xml/flutter_image_picker_file_paths" />
         </provider>
     </application>
 </manifest>
